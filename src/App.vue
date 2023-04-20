@@ -1,32 +1,66 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
+    <NavigationMenu class="nav-bar"></NavigationMenu>
+    <router-view class="main-content" />
   </div>
 </template>
 
+<script>
+import { mapState, mapGetters, mapActions } from "vuex";
+import NavigationMenu from "@/components/NavigationMenu";
+export default {
+  components: { NavigationMenu },
+  computed: {
+    ...mapState(["storage"]),
+    ...mapGetters(["getMaxId"]),
+  },
+  methods: {
+    ...mapActions(["restoreRecords", "resetRecordsToDefault"]),
+  },
+  mounted() {
+    try {
+      this.restoreRecords();
+    } catch (e) {
+      this.resetRecordsToDefault();
+    }
+  },
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@font-face {
+  font-family: Roboto;
+  src: url("@/assets/fonts/Roboto/Roboto-Light.ttf");
 }
 
-nav {
-  padding: 30px;
+#app {
+  font-family: "Roboto", serif;
+  font-weight: 100;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+.main-content {
+  margin-left: 160px;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+a {
+  text-decoration: none;
+  color: #6c6c6c;
+}
+
+body {
+  margin: 0;
+  padding-top: 0;
+}
+
+input,
+button {
+  border: none;
+}
+
+*:hover,
+*:focus {
+  outline: none;
 }
 </style>
