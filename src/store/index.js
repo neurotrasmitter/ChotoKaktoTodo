@@ -30,7 +30,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    savaRecords(state) {
+    saveRecords(state) {
       window.localStorage.storage = JSON.stringify(state.storage);
       window.localStorage.id = state.id;
     },
@@ -81,40 +81,40 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    createRecord({ commit }, payload) {
+    actionCreateRecord({ commit }, payload) {
       commit("createRecord", {
         storage: payload.storage,
         text: payload.text,
         id: payload.id,
       });
     },
-    deleteRecord({ commit }, payload) {
+    actionDeleteRecord({ commit }, payload) {
       commit("deleteRecord", {
         storage: payload.storage,
         record: payload.record,
       });
     },
-    changeStatus({ commit }, payload) {
+    actionChangeStatus({ commit }, payload) {
       commit("changeStatus", {
         record: payload.record,
       });
     },
-    changeText({ commit }, payload) {
+    actionChangeText({ commit }, payload) {
       commit("changeText", {
         record: payload.record,
         text: payload.text,
       });
     },
-    setId({ commit }) {
+    actionSetId({ commit }) {
       commit("setId");
     },
-    saveRecords({ commit }) {
-      commit("savaRecords");
+    actionSaveRecords({ commit }) {
+      commit("saveRecords");
     },
-    restoreRecords({ commit }) {
+    actionRestoreRecords({ commit }) {
       commit("restoreRecords");
     },
-    resetRecordsToDefault({ commit }) {
+    actionResetRecordsToDefault({ commit }) {
       commit("resetRecordsToDefault");
     },
   },

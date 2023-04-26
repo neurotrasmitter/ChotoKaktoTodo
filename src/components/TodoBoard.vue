@@ -1,27 +1,35 @@
 <template>
-  <div>
-    <p class="list-name first-list">СДЕЛАТЬ</p>
+  <div class="main-container">
+    <h2
+      v-if="!isCurrentTaskEmpty || isCompletedTaskEmpty"
+      class="list-name first-list"
+    >
+      СДЕЛАТЬ
+    </h2>
     <ul class="list">
       <li v-for="record of currentTasks" :key="record.id" class="list-item">
         <TodoRecord :record="record" :storage="recordStorage"></TodoRecord>
       </li>
     </ul>
-    <p class="list-name">СДЕЛАНО</p>
+    <h2 v-if="!isCompletedTaskEmpty" class="list-name">СДЕЛАНО</h2>
     <ul class="list">
       <li v-for="record of completedTask" :key="record.id" class="list-item">
         <TodoRecord :record="record" :storage="recordStorage"></TodoRecord>
       </li>
     </ul>
-    <div class="input-form">
+    <div
+      class="input-form"
+      :class="{ 'empty-task': isCurrentTaskEmpty && isCompletedTaskEmpty }"
+    >
       <input
         type="text"
-        class="input-text"
         placeholder="Введите текст задачи"
-        @keyup.enter="createRecord()"
-        v-model="text"
+        v-model.trim="text"
         minlength="1"
         maxlength="128"
         required
+        class="input-text"
+        @keyup.enter="createRecord()"
       />
       <button @click="createRecord" class="input-button">Создать</button>
     </div>
@@ -49,10 +57,30 @@ export default {
         (el) => el.checked === false
       );
     },
+    isCurrentTaskEmpty() {
+      if (
+        this.storage[this.recordStorage].filter((el) => el.checked === false)
+          .length > 0
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     completedTask() {
       return this.storage[this.recordStorage].filter(
         (el) => el.checked === true
       );
+    },
+    isCompletedTaskEmpty() {
+      if (
+        this.storage[this.recordStorage].filter((el) => el.checked === true)
+          .length
+      ) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
   watch: {
@@ -61,21 +89,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions({
-      recordCreate: "createRecord",
-      saveRecords: "saveRecords",
-      setId: "setId",
-    }),
+    ...mapActions(["actionCreateRecord", "actionSetId", "actionSaveRecords"]),
     createRecord() {
-      this.text = this.text.trim();
       if (this.text.length > 0) {
-        this.recordCreate({
+        this.actionCreateRecord({
           text: this.text,
           storage: this.recordStorage,
           id: this.getMaxId + 1,
         });
         this.text = "";
-        this.saveRecords();
+        this.actionSaveRecords();
       } else {
         alert("Поле не должно быть пустым");
       }
@@ -87,6 +110,7 @@ export default {
 <style scoped>
 .list {
   list-style-type: none;
+  margin: 0;
   padding-left: 52px;
   padding-right: 52px;
 }
@@ -98,18 +122,21 @@ export default {
 
 .list-name {
   text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
   padding-top: 31px;
   padding-bottom: 3px;
   color: #6c6c6c;
 }
 
-.first-list {
-  padding-top: 67px;
+.main-container {
+  padding-top: 36px;
 }
 
 .input-form {
   margin-left: 52px;
   margin-right: 52px;
+  margin-top: 20px;
   background: #ffffff;
   border: 3px solid #e4e4e4;
   border-radius: 7px;
@@ -130,5 +157,8 @@ export default {
   width: 123px;
   align-self: center;
   margin-right: 2px;
+}
+
+.empty-task {
 }
 </style>

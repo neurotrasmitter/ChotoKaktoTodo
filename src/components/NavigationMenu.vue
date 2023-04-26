@@ -32,14 +32,14 @@ export default {
   padding-top: 0;
   position: fixed;
   z-index: 1;
-  width: 160px;
+  width: 212px;
   height: 100%;
   background-color: #f9f9f9;
 }
 
 .routes-list {
   list-style-type: none;
-  margin-top: 0px;
+  margin-top: 0;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 104px;
@@ -49,11 +49,11 @@ export default {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
+  margin-top: 0;
+  margin-bottom: 0;
   margin-right: 5px;
   font-weight: 700;
   font-size: 16px;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .active-link {

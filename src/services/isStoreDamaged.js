@@ -8,8 +8,8 @@ function checkFieldInRecord(record) {
 function checkIdInRecord(record) {
   if (
     typeof record.id === "number" ||
-    !isNaN(record.id) ||
-    isFinite(record.id) ||
+    !Number.isNaN(record.id) ||
+    Number.isFinite(record.id) ||
     record.id >= 0 ||
     record.id < Number.MAX_SAFE_INTEGER
   ) {

@@ -15,13 +15,13 @@ export default {
     ...mapGetters(["getMaxId"]),
   },
   methods: {
-    ...mapActions(["restoreRecords", "resetRecordsToDefault"]),
+    ...mapActions(["actionRestoreRecords", "actionResetRecordsToDefault"]),
   },
   mounted() {
     try {
-      this.restoreRecords();
+      this.actionRestoreRecords();
     } catch (e) {
-      this.resetRecordsToDefault();
+      this.actionResetRecordsToDefault();
     }
   },
 };
@@ -41,7 +41,7 @@ export default {
 }
 
 .main-content {
-  margin-left: 160px;
+  margin-left: 212px;
 }
 
 a {

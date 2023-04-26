@@ -2,27 +2,27 @@
   <div class="record-container">
     <input
       type="checkbox"
+      :checked="checked"
       class="checkbox"
       @click="changeStatus"
-      :checked="checked"
     />
-    <input
-      v-if="editMode"
+    <inputs
       type="text"
-      class="text"
-      ref="textInput"
-      @keyup.enter="confirmChange"
-      @keyup.esc="discardChange"
+      v-if="editMode"
       v-model="textEditable"
+      ref="textInput"
       minlength="1"
       maxlength="128"
       required
+      class="text"
+      @keyup.enter="confirmChange"
+      @keyup.esc="discardChange"
     />
     <p
       v-else
+      :title="text"
       class="text text-info"
       :class="{ 'text-completed': checked }"
-      :title="text"
     >
       {{ text }}
     </p>
@@ -49,7 +49,7 @@
     <button
       v-if="editMode"
       v-show="!checked"
-      class="button"
+      class="button right-button"
       @click="discardChange"
       @mouseenter="discardColor = '#D26161'"
       @mouseleave="discardColor = '#6C6C6C'"
@@ -59,7 +59,7 @@
     <button
       v-else
       v-show="!checked"
-      class="button"
+      class="button right-button"
       @click="deleteRecord"
       @mouseenter="crossColor = '#D26161'"
       @mouseleave="crossColor = '#6C6C6C'"
@@ -109,19 +109,20 @@ export default {
   },
   methods: {
     //...mapActions(["deleteRecord", "changeStatus", "changeText"]),
-    ...mapActions({
-      recordDelete: "deleteRecord",
-      statusChange: "changeStatus",
-      textChange: "changeText",
-      saveRecords: "saveRecords",
-    }),
+    ...mapActions([
+      "actionDeleteRecord",
+      "actionChangeStatus",
+      "actionDeleteRecord",
+      "actionChangeText",
+      "actionSaveRecords",
+    ]),
     changeStatus() {
       try {
-        this.statusChange({ record: this.record });
+        this.actionChangeStatus({ record: this.record });
       } catch (e) {
         alert(e.text);
       }
-      this.saveRecords();
+      this.actionSaveRecords();
     },
     async changeMode() {
       this.editMode = true;
@@ -131,23 +132,29 @@ export default {
     deleteRecord() {
       if (confirm("Вы действительно хотите удалить эту запись?")) {
         try {
-          this.recordDelete({ storage: this.storage, record: this.record });
+          this.actionDeleteRecord({
+            storage: this.storage,
+            record: this.record,
+          });
         } catch (e) {
           alert(e.text);
         }
-        this.saveRecords();
+        this.actionSaveRecords();
       }
     },
     confirmChange() {
       if (this.textEditable.length > 0) {
         try {
-          this.textChange({ record: this.record, text: this.textEditable });
+          this.actionChangeText({
+            record: this.record,
+            text: this.textEditable,
+          });
         } catch (e) {
           alert(e.text);
         }
         this.text = this.textEditable;
         this.editMode = false;
-        this.saveRecords();
+        this.actionSaveRecords();
         this.pencilColor = "#6C6C6C";
       } else {
         alert("Поле не должно быть пустым");
@@ -174,11 +181,18 @@ export default {
 }
 
 .button {
+  padding-left: 5px;
+  padding-right: 5px;
   border-radius: 7px;
+  background-color: #eef4f3;
 }
 
 .left-button {
   justify-self: flex-end;
+}
+
+.right-button {
+  padding-right: 12px;
 }
 
 .text {
