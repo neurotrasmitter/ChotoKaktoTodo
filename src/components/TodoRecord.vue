@@ -90,10 +90,6 @@ export default {
       type: Object,
       required: true,
     },
-    storage: {
-      type: String,
-      required: true,
-    },
   },
   data() {
     return {

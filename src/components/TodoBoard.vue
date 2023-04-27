@@ -8,13 +8,13 @@
     </h2>
     <ul class="list">
       <li v-for="record of currentTasks" :key="record.id" class="list-item">
-        <TodoRecord :record="record" :storage="recordStorage"></TodoRecord>
+        <TodoRecord :record="record"></TodoRecord>
       </li>
     </ul>
     <h2 v-if="!isCompletedTaskEmpty" class="list-name">СДЕЛАНО</h2>
     <ul class="list">
       <li v-for="record of completedTask" :key="record.id" class="list-item">
-        <TodoRecord :record="record" :storage="recordStorage"></TodoRecord>
+        <TodoRecord :record="record"></TodoRecord>
       </li>
     </ul>
     <div
