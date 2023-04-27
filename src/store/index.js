@@ -63,11 +63,19 @@ export default new Vuex.Store({
       state.id++;
     },
     deleteRecord(state, payload) {
-      let index = state.storage[payload.storage].indexOf(payload.record);
-      if (index === "undefined") {
+      let index = -1;
+      let storage = "";
+      for (let storageName in state.storage) {
+        index = state.storage[storageName].indexOf(payload.record);
+        if (index >= 0) {
+          storage = storageName;
+          break;
+        }
+      }
+      if (index === -1) {
         throw new Error("VUEX02: ELEMENT NOT EXIST");
       } else {
-        state.storage[payload.storage].splice(index, 1);
+        state.storage[storage].splice(index, 1);
       }
     },
     changeStatus(state, payload) {
@@ -90,7 +98,6 @@ export default new Vuex.Store({
     },
     actionDeleteRecord({ commit }, payload) {
       commit("deleteRecord", {
-        storage: payload.storage,
         record: payload.record,
       });
     },

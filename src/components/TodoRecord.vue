@@ -6,7 +6,7 @@
       class="checkbox"
       @click="changeStatus"
     />
-    <inputs
+    <input
       type="text"
       v-if="editMode"
       v-model="textEditable"
@@ -133,7 +133,6 @@ export default {
       if (confirm("Вы действительно хотите удалить эту запись?")) {
         try {
           this.actionDeleteRecord({
-            storage: this.storage,
             record: this.record,
           });
         } catch (e) {
