@@ -20,7 +20,6 @@ function checkIdInRecord(record) {
 
 function isStorageDamaged(state) {
   for (let storage in state.storage) {
-    console.log(`current storage in store: ${storage}`);
     if (storage.length > 0) {
       for (let record of state.storage[storage]) {
         if (
