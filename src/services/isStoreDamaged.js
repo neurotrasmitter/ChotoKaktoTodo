@@ -1,5 +1,5 @@
 function checkFieldInRecord(record) {
-  if ("id" in record || "text" in record || "checked" in record) {
+  if ("id" in record && "text" in record && "checked" in record) {
     return true;
   }
   return false;
@@ -7,10 +7,10 @@ function checkFieldInRecord(record) {
 
 function checkIdInRecord(record) {
   if (
-    typeof record.id === "number" ||
-    !Number.isNaN(record.id) ||
-    Number.isFinite(record.id) ||
-    record.id >= 0 ||
+    typeof record.id === "number" &&
+    !Number.isNaN(record.id) &&
+    Number.isFinite(record.id) &&
+    record.id >= 0 &&
     record.id < Number.MAX_SAFE_INTEGER
   ) {
     return true;
@@ -20,6 +20,7 @@ function checkIdInRecord(record) {
 
 function isStorageDamaged(state) {
   for (let storage in state.storage) {
+    console.log(`current storage in store: ${storage}`);
     if (storage.length > 0) {
       for (let record of state.storage[storage]) {
         if (
