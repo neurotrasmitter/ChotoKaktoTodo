@@ -28,13 +28,13 @@ export default {
 
 <style scoped>
 .navigation-menu {
-  margin-top: 0;
-  padding-top: 0;
   position: fixed;
   z-index: 1;
+  background-color: #f9f9f9;
+  margin-top: 0;
+  padding-top: 0;
   width: 212px;
   height: 100%;
-  background-color: #f9f9f9;
 }
 
 .routes-list {
@@ -46,14 +46,14 @@ export default {
 }
 
 .text {
+  font-weight: 700;
+  font-size: 16px;
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 5px;
   margin-top: 0;
   margin-bottom: 0;
   margin-right: 5px;
-  font-weight: 700;
-  font-size: 16px;
 }
 
 .active-link {

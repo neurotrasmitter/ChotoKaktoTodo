@@ -166,20 +166,20 @@ export default {
 
 <style scoped>
 .record-container {
-  width: 100%;
-  height: 45px;
+  background-color: #eef4f3;
+  border-radius: 7px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #eef4f3;
-  border-radius: 7px;
+  width: 100%;
+  height: 45px;
 }
 
 .button {
+  background-color: #eef4f3;
   padding-left: 5px;
   padding-right: 5px;
   border-radius: 7px;
-  background-color: #eef4f3;
 }
 
 .left-button {
@@ -191,13 +191,13 @@ export default {
 }
 
 .text {
+  background-color: #eef4f3;
+  font-size: 16px;
+  justify-self: flex-start;
+  text-align: left;
   width: 100%;
   margin-top: 13px;
   margin-bottom: 13px;
-  justify-self: flex-start;
-  text-align: left;
-  background-color: #eef4f3;
-  font-size: 16px;
 }
 
 .text-info {
@@ -214,27 +214,27 @@ export default {
 }
 
 .checkbox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  appearance: none;
-  outline: none;
-  width: 26px;
-  height: 26px;
-  min-width: 26px;
   border: 3px solid #e4e4e4;
   border-radius: 3px;
   background-color: white;
   cursor: pointer;
+  appearance: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
   margin: 10px;
 }
 
 .checkbox:checked::before {
   content: "";
+  background-color: #93b1c6;
+  border-radius: 3px;
   width: 16px;
   height: 16px;
   margin: 2px;
-  background-color: #93b1c6;
-  border-radius: 3px;
 }
 </style>

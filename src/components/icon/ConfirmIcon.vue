@@ -32,12 +32,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.path {
-  stroke: black;
-}
-
-path:hover {
-  stroke: red;
-}
-</style>
+<style scoped></style>

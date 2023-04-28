@@ -38,6 +38,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
+
 import TodoRecord from "@/components/TodoRecord";
 
 export default {
@@ -122,11 +123,11 @@ export default {
 
 .list-name {
   text-align: center;
+  color: #6c6c6c;
   margin-top: 0;
   margin-bottom: 0;
   padding-top: 31px;
   padding-bottom: 3px;
-  color: #6c6c6c;
 }
 
 .main-container {
@@ -134,31 +135,28 @@ export default {
 }
 
 .input-form {
-  margin-left: 52px;
-  margin-right: 52px;
-  margin-top: 20px;
   background: #ffffff;
   border: 3px solid #e4e4e4;
   border-radius: 7px;
   display: flex;
   justify-content: space-between;
+  margin-left: 52px;
+  margin-right: 52px;
+  margin-top: 20px;
 }
 
 .input-text {
-  padding: 0 0 0 12px;
   width: 100%;
   height: 39px;
+  padding: 0 0 0 12px;
 }
 
 .input-button {
   background: #eef4f3;
   border-radius: 0 3px 3px 0;
-  height: 35px;
-  width: 123px;
   align-self: center;
   margin-right: 2px;
-}
-
-.empty-task {
+  height: 35px;
+  width: 123px;
 }
 </style>
