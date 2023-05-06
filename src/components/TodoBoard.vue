@@ -8,13 +8,23 @@
     </h2>
     <ul class="list">
       <li v-for="record of currentTasks" :key="record.id" class="list-item">
-        <TodoRecord :record="record"></TodoRecord>
+        <TodoRecord
+          :record="record"
+          @changeStatus="changeStatus"
+          @changeText="changeText"
+          @deleteRecord="deleteRecord"
+        ></TodoRecord>
       </li>
     </ul>
     <h2 v-if="!isCompletedTaskEmpty" class="list-name">СДЕЛАНО</h2>
     <ul class="list">
       <li v-for="record of completedTask" :key="record.id" class="list-item">
-        <TodoRecord :record="record"></TodoRecord>
+        <TodoRecord
+          :record="record"
+          @changeStatus="changeStatus"
+          @changeText="changeText"
+          @deleteRecord="deleteRecord"
+        ></TodoRecord>
       </li>
     </ul>
     <div
@@ -37,7 +47,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 import TodoRecord from "@/components/TodoRecord";
 
@@ -52,21 +62,13 @@ export default {
   },
   computed: {
     ...mapState(["storage"]),
-    ...mapGetters(["getMaxId"]),
     currentTasks() {
       return this.storage[this.recordStorage].filter(
         (el) => el.checked === false
       );
     },
     isCurrentTaskEmpty() {
-      if (
-        this.storage[this.recordStorage].filter((el) => el.checked === false)
-          .length > 0
-      ) {
-        return false;
-      } else {
-        return true;
-      }
+      return !this.currentTasks.length;
     },
     completedTask() {
       return this.storage[this.recordStorage].filter(
@@ -74,14 +76,7 @@ export default {
       );
     },
     isCompletedTaskEmpty() {
-      if (
-        this.storage[this.recordStorage].filter((el) => el.checked === true)
-          .length
-      ) {
-        return false;
-      } else {
-        return true;
-      }
+      return !this.completedTask.length;
     },
   },
   watch: {
@@ -90,18 +85,38 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["actionCreateRecord", "actionSetId", "actionSaveRecords"]),
+    ...mapMutations([
+      "mutationCreateRecord",
+      "mutationSaveRecords",
+      "mutationDeleteRecord",
+    ]),
     createRecord() {
       if (this.text.length > 0) {
-        this.actionCreateRecord({
+        this.mutationCreateRecord({
           text: this.text,
           storage: this.recordStorage,
-          id: this.getMaxId + 1,
         });
         this.text = "";
-        this.actionSaveRecords();
+        this.mutationSaveRecords();
       } else {
         alert("Поле не должно быть пустым");
+      }
+    },
+    changeStatus(event) {
+      event.record.checked = !event.record.checked;
+      this.mutationSaveRecords();
+    },
+    changeText(event) {
+      event.record.text = event.text;
+      this.mutationSaveRecords();
+    },
+    deleteRecord(event) {
+      if (confirm("Вы действительно хотите удалить запись?")) {
+        this.mutationDeleteRecord({
+          record: event.record,
+          storage: this.recordStorage,
+        });
+        this.mutationSaveRecords();
       }
     },
   },

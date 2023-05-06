@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations } from "vuex";
 
 import PencilIcon from "@/components/icon/PencilIcon";
 import CrossIcon from "@/components/icon/CrossIcon";
@@ -104,21 +104,14 @@ export default {
     };
   },
   methods: {
-    //...mapActions(["deleteRecord", "changeStatus", "changeText"]),
-    ...mapActions([
-      "actionDeleteRecord",
-      "actionChangeStatus",
-      "actionDeleteRecord",
-      "actionChangeText",
-      "actionSaveRecords",
+    ...mapMutations([
+      "mutationChangeStatus",
+      "mutationSaveRecords",
+      "mutationDeleteRecord",
+      "mutationChangeText",
     ]),
     changeStatus() {
-      try {
-        this.actionChangeStatus({ record: this.record });
-      } catch (e) {
-        alert(e.text);
-      }
-      this.actionSaveRecords();
+      this.$emit("changeStatus", { record: this.record });
     },
     async changeMode() {
       this.editMode = true;
@@ -126,30 +119,16 @@ export default {
       this.$refs.textInput.focus();
     },
     deleteRecord() {
-      if (confirm("Вы действительно хотите удалить эту запись?")) {
-        try {
-          this.actionDeleteRecord({
-            record: this.record,
-          });
-        } catch (e) {
-          alert(e.text);
-        }
-        this.actionSaveRecords();
-      }
+      this.$emit("deleteRecord", { record: this.record });
     },
     confirmChange() {
       if (this.textEditable.length > 0) {
-        try {
-          this.actionChangeText({
-            record: this.record,
-            text: this.textEditable,
-          });
-        } catch (e) {
-          alert(e.text);
-        }
+        this.$emit("changeText", {
+          record: this.record,
+          text: this.textEditable,
+        });
         this.text = this.textEditable;
         this.editMode = false;
-        this.actionSaveRecords();
         this.pencilColor = "#6C6C6C";
       } else {
         alert("Поле не должно быть пустым");

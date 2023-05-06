@@ -6,13 +6,12 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import NavigationMenu from "@/components/NavigationMenu";
 export default {
   components: { NavigationMenu },
   computed: {
     ...mapState(["storage"]),
-    ...mapGetters(["getMaxId"]),
   },
   methods: {
     ...mapActions(["actionRestoreRecords", "actionResetRecordsToDefault"]),
@@ -21,6 +20,7 @@ export default {
     try {
       this.actionRestoreRecords();
     } catch (e) {
+      console.log(e);
       this.actionResetRecordsToDefault();
     }
   },

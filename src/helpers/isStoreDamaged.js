@@ -1,21 +1,15 @@
-function checkFieldInRecord(record) {
-  if ("id" in record && "text" in record && "checked" in record) {
-    return true;
-  }
-  return false;
+function checkFieldsInRecord(record) {
+  return "id" in record && "text" in record && "checked" in record;
 }
 
 function checkIdInRecord(record) {
-  if (
+  return (
     typeof record.id === "number" &&
     !Number.isNaN(record.id) &&
     Number.isFinite(record.id) &&
     record.id >= 0 &&
     record.id < Number.MAX_SAFE_INTEGER
-  ) {
-    return true;
-  }
-  return false;
+  );
 }
 
 function isStorageDamaged(state) {
@@ -23,7 +17,7 @@ function isStorageDamaged(state) {
     if (storage.length > 0) {
       for (let record of state.storage[storage]) {
         if (
-          !checkFieldInRecord(record) ||
+          !checkFieldsInRecord(record) ||
           !checkIdInRecord(record) ||
           typeof record.checked !== "boolean"
         ) {
