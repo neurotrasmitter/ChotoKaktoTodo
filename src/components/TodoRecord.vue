@@ -31,40 +31,32 @@
       v-show="!checked"
       class="button left-button"
       @click="confirmChange"
-      @mouseenter="confirmColor = '#6C7AC3'"
-      @mouseleave="confirmColor = '#6C6C6C'"
     >
-      <ConfirmIcon :color="confirmColor"></ConfirmIcon>
+      <ConfirmIcon></ConfirmIcon>
     </button>
     <button
       v-else
       v-show="!checked"
       class="button left-button"
       @click="changeMode"
-      @mouseenter="pencilColor = '#6C7AC3'"
-      @mouseleave="pencilColor = '#6C6C6C'"
     >
-      <PencilIcon :color="pencilColor"></PencilIcon>
+      <PencilIcon></PencilIcon>
     </button>
     <button
       v-if="editMode"
       v-show="!checked"
       class="button right-button"
       @click="discardChange"
-      @mouseenter="discardColor = '#D26161'"
-      @mouseleave="discardColor = '#6C6C6C'"
     >
-      <DiscardIcon :color="discardColor"></DiscardIcon>
+      <DiscardIcon></DiscardIcon>
     </button>
     <button
       v-else
       v-show="!checked"
       class="button right-button"
       @click="deleteRecord"
-      @mouseenter="crossColor = '#D26161'"
-      @mouseleave="crossColor = '#6C6C6C'"
     >
-      <CrossIcon :color="crossColor"></CrossIcon>
+      <CrossIcon></CrossIcon>
     </button>
   </div>
 </template>
@@ -97,10 +89,6 @@ export default {
       text: this.record.text,
       textEditable: this.record.text,
       editMode: false,
-      pencilColor: "#6C6C6C",
-      crossColor: "#6C6C6C",
-      confirmColor: "#6C6C6C",
-      discardColor: "#6C6C6C",
     };
   },
   methods: {
@@ -129,7 +117,6 @@ export default {
         });
         this.text = this.textEditable;
         this.editMode = false;
-        this.pencilColor = "#6C6C6C";
       } else {
         alert("Поле не должно быть пустым");
       }
@@ -137,7 +124,6 @@ export default {
     discardChange() {
       this.textEditable = this.record.text;
       this.editMode = false;
-      this.pencilColor = "#6C6C6C";
     },
   },
 };

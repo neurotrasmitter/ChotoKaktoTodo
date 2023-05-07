@@ -1,0 +1,15 @@
+.button:hover .confirm-icon > path {
+    stroke: #6C7AC3;
+}
+
+.button:hover .pencil-icon > path {
+    fill: #6C7AC3;
+}
+
+button:hover .cross-icon > path {
+    fill: #D26161;
+}
+
+button:hover .discard-icon > path {
+    stroke: #D26161;
+}
