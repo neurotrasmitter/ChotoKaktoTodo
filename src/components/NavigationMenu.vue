@@ -2,7 +2,7 @@
   <div class="navigation-menu">
     <ul class="routes-list">
       <li>
-        <router-link to="/" tag="li" exact-active-class="active-link"
+        <router-link to="/work" tag="li" exact-active-class="active-link"
           ><p class="text">Работа</p></router-link
         >
       </li>

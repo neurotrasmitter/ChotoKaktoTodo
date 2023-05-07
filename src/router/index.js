@@ -6,6 +6,10 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
+    redirect: "/work",
+  },
+  {
+    path: "/work",
     name: "work",
     component: () => import("../components/TodoBoard"),
   },
